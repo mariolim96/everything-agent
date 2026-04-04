@@ -67,7 +67,7 @@ module.exports = createInstallTargetAdapter({
           ];
         }
 
-        if (sourceRelativePath === 'agents') {
+        if (sourceRelativePath === 'agents' || sourceRelativePath.startsWith('skills/')) {
           return [
             createManagedScaffoldOperation(
               module.id,

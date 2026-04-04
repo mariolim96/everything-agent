@@ -26,7 +26,7 @@
 **Language / 语言 / 語言 / Dil**
 
 [**English**](README.md) | [Português (Brasil)](docs/pt-BR/README.md) | [简体中文](README.zh-CN.md) | [繁體中文](docs/zh-TW/README.md) | [日本語](docs/ja-JP/README.md) | [한국어](docs/ko-KR/README.md)
- | [Türkçe](docs/tr/README.md)
+| [Türkçe](docs/tr/README.md)
 
 </div>
 
@@ -84,9 +84,9 @@ This repo is the raw code only. The guides explain everything.
 
 ### v1.9.0 — Selective Install & Language Expansion (Mar 2026)
 
-- **Selective install architecture** — Manifest-driven install pipeline with `install-plan.js` and `install-apply.js` for targeted component installation. State store tracks what's installed and enables incremental updates.
-- **6 new agents** — `typescript-reviewer`, `pytorch-build-resolver`, `java-build-resolver`, `java-reviewer`, `kotlin-reviewer`, `kotlin-build-resolver` expand language coverage to 10 languages.
-- **New skills** — `pytorch-patterns` for deep learning workflows, `documentation-lookup` for API reference research, `bun-runtime` and `nextjs-turbopack` for modern JS toolchains, plus 8 operational domain skills and `mcp-server-patterns`.
+- **Advanced Java Support** — Production-ready Quarkus and Spring Boot integration with specialized patterns for CDI (ArC), Panache, Mutiny, observability (Health/Metrics), and OpenAPI.
+- **6 new agents** — `typescript-reviewer`, `pytorch-build-resolver`, `java-build-resolver`, `java-reviewer`, `quarkus-reviewer`, `springboot-reviewer`, `kotlin-reviewer`, `kotlin-build-resolver` expand language coverage to 10 languages.
+- **Project Templates** — New Example API configurations (`quarkus-api-CLAUDE.md`, `springboot-api-CLAUDE.md`) provide instant localized rules for modern Java stacks.
 - **Session & state infrastructure** — SQLite state store with query CLI, session adapters for structured recording, skill evolution foundation for self-improving skills.
 - **Orchestration overhaul** — Harness audit scoring made deterministic, orchestration status and launcher compatibility hardened, observer loop prevention with 5-layer guard.
 - **Observer reliability** — Memory explosion fix with throttling and tail sampling, sandbox access fix, lazy-start logic, and re-entrancy guard.
@@ -236,6 +236,7 @@ For manual install instructions see the README in the `rules/` folder. When copy
 > Initialize it with `npx ccg-workflow`.
 >
 > That runtime provides the external dependencies these commands expect, including:
+>
 > - `~/.claude/bin/codeagent-wrapper`
 > - `~/.claude/.ccg/prompts/*`
 >
@@ -467,6 +468,7 @@ everything-claude-code/
 |   |   |-- session-end.js       # Save state on session end
 |   |   |-- pre-compact.js       # Pre-compaction state saving
 |   |   |-- suggest-compact.js   # Strategic compaction suggestions
+|   |   |-- evaluate-session.js  # Extract patterns from sessions
 |   |-- setup-package-manager.js # Interactive PM setup
 |
 |-- tests/            # Test suite (NEW)
@@ -777,30 +779,14 @@ See [`rules/README.md`](rules/README.md) for installation and structure details.
 
 ## Which Agent Should I Use?
 
-Not sure where to start? Use this quick reference. Skills are the canonical workflow surface; slash entries below are the compatibility form most users already know.
-
-<<<<<<< HEAD
-| I want to...                  | Use this command                                 | Agent used           |
-| ----------------------------- | ------------------------------------------------ | -------------------- |
-| Plan a new feature            | `/everything-claude-code:plan "Add auth"`        | planner              |
-| Design system architecture    | `/everything-claude-code:plan` + architect agent | architect            |
-| Write code with tests first   | `/tdd`                                           | tdd-guide            |
-| Review code I just wrote      | `/code-review`                                   | code-reviewer        |
-| Fix a failing build           | `/build-fix`                                     | build-error-resolver |
-| Run end-to-end tests          | `/e2e`                                           | e2e-runner           |
-| Find security vulnerabilities | `/security-scan`                                 | security-reviewer    |
-| Remove dead code              | `/refactor-clean`                                | refactor-cleaner     |
-| Update documentation          | `/update-docs`                                   | doc-updater          |
-| Review Go code                | `/go-review`                                     | go-reviewer          |
-| Review Python code            | `/python-review`                                 | python-reviewer      |
-| Audit database queries        | _(auto-delegated)_                               | database-reviewer    |
-=======
 | I want to... | Use this command | Agent used |
-|--------------|-----------------|------------|
+| ----------------------------- | ------------------------------------------------ | -------------------- |
 | Plan a new feature | `/everything-claude-code:plan "Add auth"` | planner |
 | Design system architecture | `/everything-claude-code:plan` + architect agent | architect |
 | Write code with tests first | `/tdd` | tdd-guide |
 | Review code I just wrote | `/code-review` | code-reviewer |
+| Review Quarkus code | `@quarkus-reviewer` | quarkus-reviewer |
+| Review Spring Boot code | `@springboot-reviewer` | springboot-reviewer |
 | Fix a failing build | `/build-fix` | build-error-resolver |
 | Run end-to-end tests | `/e2e` | e2e-runner |
 | Find security vulnerabilities | `/security-scan` | security-reviewer |
@@ -808,9 +794,10 @@ Not sure where to start? Use this quick reference. Skills are the canonical work
 | Update documentation | `/update-docs` | doc-updater |
 | Review Go code | `/go-review` | go-reviewer |
 | Review Python code | `/python-review` | python-reviewer |
-| Review TypeScript/JavaScript code | *(invoke `typescript-reviewer` directly)* | typescript-reviewer |
-| Audit database queries | *(auto-delegated)* | database-reviewer |
->>>>>>> origin
+| Review TypeScript/JavaScript code | _(invoke `typescript-reviewer` directly)_ | typescript-reviewer |
+| Audit database queries | _(auto-delegated)_ | database-reviewer |
+
+> > > > > > > origin
 
 ### Common Workflows
 
@@ -883,6 +870,7 @@ claude
 If your gateway remaps model names, configure that in Claude Code rather than in ECC. ECC's hooks, skills, commands, and rules are model-provider agnostic once the `claude` CLI is already working.
 
 Official references:
+
 - [Claude Code LLM gateway docs](https://docs.anthropic.com/en/docs/claude-code/llm-gateway)
 - [Claude Code model configuration docs](https://docs.anthropic.com/en/docs/claude-code/model-config)
 
@@ -1010,15 +998,15 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 ### What's Included
 
 <<<<<<< HEAD
-| Component    | Count            | Details                                                                                                |
+| Component | Count | Details |
 | ------------ | ---------------- | ------------------------------------------------------------------------------------------------------ |
-| Hook Events  | 15               | sessionStart, beforeShellExecution, afterFileEdit, beforeMCPExecution, beforeSubmitPrompt, and 10 more |
-| Hook Scripts | 16               | Thin Node.js scripts delegating to `scripts/hooks/` via shared adapter                                 |
-| Rules        | 29               | 9 common (alwaysApply) + 20 language-specific (TypeScript, Python, Go, Swift)                          |
-| Agents       | Shared           | Via AGENTS.md at root (read by Cursor natively)                                                        |
-| Skills       | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions                                   |
-| Commands     | Shared           | `.cursor/commands/` if installed                                                                       |
-| MCP Config   | Shared           | `.cursor/mcp.json` if installed                                                                        |
+| Hook Events | 15 | sessionStart, beforeShellExecution, afterFileEdit, beforeMCPExecution, beforeSubmitPrompt, and 10 more |
+| Hook Scripts | 16 | Thin Node.js scripts delegating to `scripts/hooks/` via shared adapter |
+| Rules | 29 | 9 common (alwaysApply) + 20 language-specific (TypeScript, Python, Go, Swift) |
+| Agents | Shared | Via AGENTS.md at root (read by Cursor natively) |
+| Skills | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions |
+| Commands | Shared | `.cursor/commands/` if installed |
+| MCP Config | Shared | `.cursor/mcp.json` if installed |
 =======
 | Component | Count | Details |
 |-----------|-------|---------|
@@ -1029,7 +1017,8 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 | Skills | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions |
 | Commands | Shared | `.cursor/commands/` if installed |
 | MCP Config | Shared | `.cursor/mcp.json` if installed |
->>>>>>> origin
+
+> > > > > > > origin
 
 ### Hook Architecture (DRY Adapter Pattern)
 
@@ -1097,13 +1086,13 @@ Codex macOS app:
 ### What's Included
 
 <<<<<<< HEAD
-| Component   | Count | Details                                                                         |
+| Component | Count | Details |
 | ----------- | ----- | ------------------------------------------------------------------------------- |
-| Config      | 1     | `.codex/config.toml` — model, permissions, MCP servers, persistent instructions |
-| AGENTS.md   | 2     | Root (universal) + `.codex/AGENTS.md` (Codex-specific supplement)               |
-| Skills      | 16    | `.agents/skills/` — SKILL.md + agents/openai.yaml per skill                     |
-| MCP Servers | 4     | GitHub, Context7, Memory, Sequential Thinking (command-based)                   |
-| Profiles    | 2     | `strict` (read-only sandbox) and `yolo` (full auto-approve)                     |
+| Config | 1 | `.codex/config.toml` — model, permissions, MCP servers, persistent instructions |
+| AGENTS.md | 2 | Root (universal) + `.codex/AGENTS.md` (Codex-specific supplement) |
+| Skills | 16 | `.agents/skills/` — SKILL.md + agents/openai.yaml per skill |
+| MCP Servers | 4 | GitHub, Context7, Memory, Sequential Thinking (command-based) |
+| Profiles | 2 | `strict` (read-only sandbox) and `yolo` (full auto-approve) |
 =======
 | Component | Count | Details |
 |-----------|-------|---------|
@@ -1113,7 +1102,8 @@ Codex macOS app:
 | MCP Servers | 6 | Supabase, Playwright, Context7, GitHub, Memory, Sequential Thinking (auto-merged via add-only sync) |
 | Profiles | 2 | `strict` (read-only sandbox) and `yolo` (full auto-approve) |
 | Agent Roles | 3 | `.codex/agents/` — explorer, reviewer, docs-researcher |
->>>>>>> origin
+
+> > > > > > > origin
 
 ### Skills
 
@@ -1153,10 +1143,10 @@ Current Codex builds support experimental multi-agent workflows.
 
 ECC ships three sample role configs:
 
-| Role | Purpose |
-|------|---------|
-| `explorer` | Read-only codebase evidence gathering before edits |
-| `reviewer` | Correctness, security, and missing-test review |
+| Role              | Purpose                                                        |
+| ----------------- | -------------------------------------------------------------- |
+| `explorer`        | Read-only codebase evidence gathering before edits             |
+| `reviewer`        | Correctness, security, and missing-test review                 |
 | `docs_researcher` | Documentation and API verification before release/docs changes |
 
 ---
@@ -1180,15 +1170,15 @@ The configuration is automatically detected from `.opencode/opencode.json`.
 ### Feature Parity
 
 <<<<<<< HEAD
-| Feature      | Claude Code      | OpenCode           | Status                 |
+| Feature | Claude Code | OpenCode | Status |
 | ------------ | ---------------- | ------------------ | ---------------------- |
-| Agents       | ✅ 16 agents     | ✅ 12 agents       | **Claude Code leads**  |
-| Commands     | ✅ 40 commands   | ✅ 31 commands     | **Claude Code leads**  |
-| Skills       | ✅ 65 skills     | ✅ 37 skills       | **Claude Code leads**  |
-| Hooks        | ✅ 8 event types | ✅ 11 events       | **OpenCode has more!** |
-| Rules        | ✅ 29 rules      | ✅ 13 instructions | **Claude Code leads**  |
-| MCP Servers  | ✅ 14 servers    | ✅ Full            | **Full parity**        |
-| Custom Tools | ✅ Via hooks     | ✅ 6 native tools  | **OpenCode is better** |
+| Agents | ✅ 16 agents | ✅ 12 agents | **Claude Code leads** |
+| Commands | ✅ 40 commands | ✅ 31 commands | **Claude Code leads** |
+| Skills | ✅ 65 skills | ✅ 37 skills | **Claude Code leads** |
+| Hooks | ✅ 8 event types | ✅ 11 events | **OpenCode has more!** |
+| Rules | ✅ 29 rules | ✅ 13 instructions | **Claude Code leads** |
+| MCP Servers | ✅ 14 servers | ✅ Full | **Full parity** |
+| Custom Tools | ✅ Via hooks | ✅ 6 native tools | **OpenCode is better** |
 =======
 | Feature | Claude Code | OpenCode | Status |
 |---------|-------------|----------|--------|
@@ -1199,7 +1189,8 @@ The configuration is automatically detected from `.opencode/opencode.json`.
 | Rules | PASS: 29 rules | PASS: 13 instructions | **Claude Code leads** |
 | MCP Servers | PASS: 14 servers | PASS: Full | **Full parity** |
 | Custom Tools | PASS: Via hooks | PASS: 6 native tools | **OpenCode is better** |
->>>>>>> origin
+
+> > > > > > > origin
 
 ### Hook Support via Plugins
 
@@ -1218,47 +1209,47 @@ OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event t
 ### Available Slash Entry Shims (31+)
 
 <<<<<<< HEAD
-| Command            | Description                                                 |
+| Command | Description |
 | ------------------ | ----------------------------------------------------------- |
-| `/plan`            | Create implementation plan                                  |
-| `/tdd`             | Enforce TDD workflow                                        |
-| `/code-review`     | Review code changes                                         |
-| `/build-fix`       | Fix build errors                                            |
-| `/e2e`             | Generate E2E tests                                          |
-| `/refactor-clean`  | Remove dead code                                            |
-| `/orchestrate`     | Multi-agent workflow                                        |
-| `/learn`           | Extract patterns from session                               |
-| `/checkpoint`      | Save verification state                                     |
-| `/verify`          | Run verification loop                                       |
-| `/eval`            | Evaluate against criteria                                   |
-| `/update-docs`     | Update documentation                                        |
-| `/update-codemaps` | Update codemaps                                             |
-| `/test-coverage`   | Analyze coverage                                            |
-| `/go-review`       | Go code review                                              |
-| `/go-test`         | Go TDD workflow                                             |
-| `/go-build`        | Fix Go build errors                                         |
-| `/python-review`   | Python code review (PEP 8, type hints, security)            |
-| `/multi-plan`      | Multi-model collaborative planning                          |
-| `/multi-execute`   | Multi-model collaborative execution                         |
-| `/multi-backend`   | Backend-focused multi-model workflow                        |
-| `/multi-frontend`  | Frontend-focused multi-model workflow                       |
-| `/multi-workflow`  | Full multi-model development workflow                       |
-| `/pm2`             | Auto-generate PM2 service commands                          |
-| `/sessions`        | Manage session history                                      |
-| `/skill-create`    | Generate skills from git                                    |
-| `/instinct-status` | View learned instincts                                      |
-| `/instinct-import` | Import instincts                                            |
-| `/instinct-export` | Export instincts                                            |
-| `/evolve`          | Cluster instincts into skills                               |
-| `/promote`         | Promote project instincts to global scope                   |
-| `/projects`        | List known projects and instinct stats                      |
-| `/learn-eval`      | Extract and evaluate patterns before saving                 |
-| `/setup-pm`        | Configure package manager                                   |
-| `/harness-audit`   | Audit harness reliability, eval readiness, and risk posture |
-| `/loop-start`      | Start controlled agentic loop execution pattern             |
-| `/loop-status`     | Inspect active loop status and checkpoints                  |
-| `/quality-gate`    | Run quality gate checks for paths or entire repo            |
-| `/model-route`     | Route tasks to models by complexity and budget              |
+| `/plan` | Create implementation plan |
+| `/tdd` | Enforce TDD workflow |
+| `/code-review` | Review code changes |
+| `/build-fix` | Fix build errors |
+| `/e2e` | Generate E2E tests |
+| `/refactor-clean` | Remove dead code |
+| `/orchestrate` | Multi-agent workflow |
+| `/learn` | Extract patterns from session |
+| `/checkpoint` | Save verification state |
+| `/verify` | Run verification loop |
+| `/eval` | Evaluate against criteria |
+| `/update-docs` | Update documentation |
+| `/update-codemaps` | Update codemaps |
+| `/test-coverage` | Analyze coverage |
+| `/go-review` | Go code review |
+| `/go-test` | Go TDD workflow |
+| `/go-build` | Fix Go build errors |
+| `/python-review` | Python code review (PEP 8, type hints, security) |
+| `/multi-plan` | Multi-model collaborative planning |
+| `/multi-execute` | Multi-model collaborative execution |
+| `/multi-backend` | Backend-focused multi-model workflow |
+| `/multi-frontend` | Frontend-focused multi-model workflow |
+| `/multi-workflow` | Full multi-model development workflow |
+| `/pm2` | Auto-generate PM2 service commands |
+| `/sessions` | Manage session history |
+| `/skill-create` | Generate skills from git |
+| `/instinct-status` | View learned instincts |
+| `/instinct-import` | Import instincts |
+| `/instinct-export` | Export instincts |
+| `/evolve` | Cluster instincts into skills |
+| `/promote` | Promote project instincts to global scope |
+| `/projects` | List known projects and instinct stats |
+| `/learn-eval` | Extract and evaluate patterns before saving |
+| `/setup-pm` | Configure package manager |
+| `/harness-audit` | Audit harness reliability, eval readiness, and risk posture |
+| `/loop-start` | Start controlled agentic loop execution pattern |
+| `/loop-status` | Inspect active loop status and checkpoints |
+| `/quality-gate` | Run quality gate checks for paths or entire repo |
+| `/model-route` | Route tasks to models by complexity and budget |
 =======
 | Command | Description |
 |---------|-------------|
@@ -1302,7 +1293,8 @@ OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event t
 | `/loop-status` | Inspect active loop status and checkpoints |
 | `/quality-gate` | Run quality gate checks for paths or entire repo |
 | `/model-route` | Route tasks to models by complexity and budget |
->>>>>>> origin
+
+> > > > > > > origin
 
 ### Plugin Installation
 
@@ -1349,21 +1341,21 @@ For the full ECC OpenCode setup, either:
 ECC is the **first plugin to maximize every major AI coding tool**. Here's how each harness compares:
 
 <<<<<<< HEAD
-| Feature              | Claude Code           | Cursor IDE               | Codex CLI          | OpenCode         |
+| Feature | Claude Code | Cursor IDE | Codex CLI | OpenCode |
 | -------------------- | --------------------- | ------------------------ | ------------------ | ---------------- |
-| **Agents**           | 16                    | Shared (AGENTS.md)       | Shared (AGENTS.md) | 12               |
-| **Commands**         | 40                    | Shared                   | Instruction-based  | 31               |
-| **Skills**           | 65                    | Shared                   | 10 (native format) | 37               |
-| **Hook Events**      | 8 types               | 15 types                 | None yet           | 11 types         |
-| **Hook Scripts**     | 20+ scripts           | 16 scripts (DRY adapter) | N/A                | Plugin hooks     |
-| **Rules**            | 29 (common + lang)    | 29 (YAML frontmatter)    | Instruction-based  | 13 instructions  |
-| **Custom Tools**     | Via hooks             | Via hooks                | N/A                | 6 native tools   |
-| **MCP Servers**      | 14                    | Shared (mcp.json)        | 4 (command-based)  | Full             |
-| **Config Format**    | settings.json         | hooks.json + rules/      | config.toml        | opencode.json    |
-| **Context File**     | CLAUDE.md + AGENTS.md | AGENTS.md                | AGENTS.md          | AGENTS.md        |
-| **Secret Detection** | Hook-based            | beforeSubmitPrompt hook  | Sandbox-based      | Hook-based       |
-| **Auto-Format**      | PostToolUse hook      | afterFileEdit hook       | N/A                | file.edited hook |
-| **Version**          | Plugin                | Plugin                   | Reference config   | 1.8.0            |
+| **Agents** | 16 | Shared (AGENTS.md) | Shared (AGENTS.md) | 12 |
+| **Commands** | 40 | Shared | Instruction-based | 31 |
+| **Skills** | 65 | Shared | 10 (native format) | 37 |
+| **Hook Events** | 8 types | 15 types | None yet | 11 types |
+| **Hook Scripts** | 20+ scripts | 16 scripts (DRY adapter) | N/A | Plugin hooks |
+| **Rules** | 29 (common + lang) | 29 (YAML frontmatter) | Instruction-based | 13 instructions |
+| **Custom Tools** | Via hooks | Via hooks | N/A | 6 native tools |
+| **MCP Servers** | 14 | Shared (mcp.json) | 4 (command-based) | Full |
+| **Config Format** | settings.json | hooks.json + rules/ | config.toml | opencode.json |
+| **Context File** | CLAUDE.md + AGENTS.md | AGENTS.md | AGENTS.md | AGENTS.md |
+| **Secret Detection** | Hook-based | beforeSubmitPrompt hook | Sandbox-based | Hook-based |
+| **Auto-Format** | PostToolUse hook | afterFileEdit hook | N/A | file.edited hook |
+| **Version** | Plugin | Plugin | Reference config | 1.8.0 |
 =======
 | Feature | Claude Code | Cursor IDE | Codex CLI | OpenCode |
 |---------|------------|------------|-----------|----------|
@@ -1380,7 +1372,8 @@ ECC is the **first plugin to maximize every major AI coding tool**. Here's how e
 | **Secret Detection** | Hook-based | beforeSubmitPrompt hook | Sandbox-based | Hook-based |
 | **Auto-Format** | PostToolUse hook | afterFileEdit hook | N/A | file.edited hook |
 | **Version** | Plugin | Plugin | Reference config | 1.9.0 |
->>>>>>> origin
+
+> > > > > > > origin
 
 **Key architectural decisions:**
 

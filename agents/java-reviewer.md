@@ -91,3 +91,7 @@ Fix: What to change
 
 For detailed patterns, see rules: `rules/java/*.md` and skills: `java-coding-standards`, `jpa-patterns`, `springboot-patterns`, `quarkus-patterns`, `quarkus-security`, `quarkus-tdd`, `quarkus-verification`.
 
+## Project Templates
+- Example: [Quarkus API Template](examples/quarkus-api-CLAUDE.md)
+- Example: [Spring Boot API Template](examples/springboot-api-CLAUDE.md)
+

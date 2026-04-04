@@ -149,7 +149,10 @@
         "skills/rust-testing",
         "skills/springboot-patterns",
         "skills/springboot-tdd",
-        "skills/springboot-verification"
+        "skills/springboot-verification",
+        "skills/quarkus-patterns",
+        "skills/quarkus-tdd",
+        "skills/quarkus-verification"
       ],
       "targets": [
         "claude",
@@ -239,6 +242,7 @@
         "skills/security-review",
         "skills/security-scan",
         "skills/springboot-security",
+        "skills/quarkus-security",
         "the-security-guide.md"
       ],
       "targets": [

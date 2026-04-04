@@ -74,8 +74,45 @@ public record ApiResponse<T>(boolean success, T data, String error) {
 }
 ```
 
+## Observability (Health & Metrics)
+
+### Quarkus (MicroProfile)
+Use MicroProfile Health for readiness/liveness and Metrics for performance monitoring.
+
+```java
+@Readiness
+@ApplicationScoped
+public class DatabaseHealthCheck implements HealthCheck {
+    @Override
+    public HealthCheckResponse call() {
+        return HealthCheckResponse.up("Database connection");
+    }
+}
+
+@Timed(name = "processTime", description = "Time to process request")
+public Uni<Response> process() { ... }
+```
+
+### Spring Boot (Actuator)
+Enable Actuator endpoints and use Micrometer for custom metrics.
+
+```java
+@Bean
+public HealthIndicator customHealthIndicator() {
+    return () -> Health.up().withDetail("External Service", "Connected").build();
+}
+```
+
+## OpenAPI & Documentation
+
+Always provide standardized API documentation.
+
+- **Quarkus**: Use `quarkus-smallrye-openapi` extension. Annotate with `@Operation` and `@APIResponse`.
+- **Spring Boot**: Use `springdoc-openapi-starter-webmvc-ui`. Annotate with `@Tag` and `@ApiResponse`.
+
 ## References
 
 - See skill: `springboot-patterns` for Spring Boot architecture patterns.
 - See skill: `quarkus-patterns` for Quarkus-specific best practices (Panache, CDI, Mutiny).
 - See skill: `jpa-patterns` for entity design and query optimization.
+- See examples: `examples/quarkus-api-CLAUDE.md`, `examples/springboot-api-CLAUDE.md`.

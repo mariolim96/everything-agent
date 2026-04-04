@@ -27,4 +27,6 @@ Configure in `~/.claude/settings.json`:
 - **Validation**: Warn about missing `@Valid` on controller/resource parameters.
 - **Logging**: Warn about usage of `System.out.println` — suggest using SLF4J or JBoss Logging.
 - **Quarkus Configuration**: Trigger `mvn quarkus:dev` if `application.properties` or `application.yml` is modified.
+- **Dependency Audit**: Suggest `mvn dependency:analyze` (Maven) or `./gradlew dependencies` (Gradle) if `pom.xml` or `build.gradle` is modified.
+- **Native Image Check**: Suggest `mvn verify -Pnative` in Quarkus projects if core JAX-RS or Panache logic is heavily modified.
 
