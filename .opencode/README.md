@@ -1,6 +1,6 @@
 # OpenCode ECC Plugin
 
-> ⚠️ This README is specific to OpenCode usage.  
+> WARNING: This README is specific to OpenCode usage.
 > If you installed ECC via npm (e.g. `npm install opencode-ecc`), refer to the root README instead.
 
 Everything Claude Code (ECC) plugin for OpenCode - agents, commands, hooks, and skills.
@@ -11,10 +11,10 @@ Everything Claude Code (ECC) plugin for OpenCode - agents, commands, hooks, and 
 
 There are two ways to use Everything Claude Code (ECC):
 
-1. **npm package (recommended for most users)**  
+1. **npm package (recommended for most users)**
    Install via npm/bun/yarn and use the `ecc-install` CLI to set up rules and agents.
 
-2. **Direct clone / plugin mode**  
+2. **Direct clone / plugin mode**
    Clone the repository and run OpenCode directly inside it.
 
 Choose the method that matches your workflow below.
@@ -189,7 +189,7 @@ Full configuration in `opencode.json`:
   "$schema": "https://opencode.ai/config.json",
   "model": "anthropic/claude-sonnet-4-5",
   "small_model": "anthropic/claude-haiku-4-5",
-  "plugin": ["./.opencode/plugins"],
+  "plugin": ["./plugins"],
   "instructions": [
     "skills/tdd-workflow/SKILL.md",
     "skills/security-review/SKILL.md"

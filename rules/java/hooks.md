@@ -1,19 +1,30 @@
 ---
 paths:
+paths:
   - '**/*.java'
+  - '**/pom.xml'
+  - '**/build.gradle'
+  - '**/build.gradle.kts'
+  - '**/application.properties'
+  - '**/application.yml'
 ---
 
 # Java Hooks
 
-> This file extends [common/hooks.md](../common/hooks.md) with Java specific content.
+> This file extends [common/hooks.md](../common/hooks.md) with Java, Quarkus, and Spring Boot specific content.
 
 ## PostToolUse Hooks
 
-- **Spotless/Google Java Format**: Auto-format `.java` files after edit if configured.
-- **Checkstyle**: Run static analysis after editing Java files.
+Configure in `~/.claude/settings.json`:
 
-## Warnings
+- **Formatting**: Auto-format `.java` files after edit (using `google-java-format` or `Spotless`).
+- **Style Overlays**: Run `checkstyle` after editing Java files.
+- **Verification**: Run `./mvnw compile` or `./gradlew compileJava` to verify changes.
 
-- Warn about field injection (`@Inject` on fields) — suggest constructor injection.
-- Warn about missing `@Valid` on controller/resource parameters.
-- Warn about usage of `System.out.println` — suggest using `org.jboss.logging.Logger` or SLF4J.
+## Warnings & Automations
+
+- **Constructor Injection**: Warn about field injection (`@Inject` or `@Autowired` on fields) — suggest constructor injection.
+- **Validation**: Warn about missing `@Valid` on controller/resource parameters.
+- **Logging**: Warn about usage of `System.out.println` — suggest using SLF4J or JBoss Logging.
+- **Quarkus Configuration**: Trigger `mvn quarkus:dev` if `application.properties` or `application.yml` is modified.
+

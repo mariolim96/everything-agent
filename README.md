@@ -1,4 +1,4 @@
-**Language:** English | [繁體中文](docs/zh-TW/README.md)
+**Language:** English | [Português (Brasil)](docs/pt-BR/README.md) | [简体中文](README.zh-CN.md) | [繁體中文](docs/zh-TW/README.md) | [日本語](docs/ja-JP/README.md) | [한국어](docs/ko-KR/README.md) | [Türkçe](docs/tr/README.md)
 
 # Everything Claude Code
 
@@ -14,17 +14,19 @@
 ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white)
 ![Go](https://img.shields.io/badge/-Go-00ADD8?logo=go&logoColor=white)
 ![Java](https://img.shields.io/badge/-Java-ED8B00?logo=openjdk&logoColor=white)
+![Perl](https://img.shields.io/badge/-Perl-39457E?logo=perl&logoColor=white)
 ![Markdown](https://img.shields.io/badge/-Markdown-000000?logo=markdown&logoColor=white)
 
-> **50K+ stars** | **6K+ forks** | **30 contributors** | **6 languages supported** | **Anthropic Hackathon Winner**
+> **50K+ stars** | **6K+ forks** | **30 contributors** | **7 languages supported** | **Anthropic Hackathon Winner**
 
 ---
 
 <div align="center">
 
-**🌐 Language / 语言 / 語言**
+**Language / 语言 / 語言 / Dil**
 
-[**English**](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](docs/zh-TW/README.md) | [日本語](docs/ja-JP/README.md)
+[**English**](README.md) | [Português (Brasil)](docs/pt-BR/README.md) | [简体中文](README.zh-CN.md) | [繁體中文](docs/zh-TW/README.md) | [日本語](docs/ja-JP/README.md) | [한국어](docs/ko-KR/README.md)
+ | [Türkçe](docs/tr/README.md)
 
 </div>
 
@@ -32,7 +34,7 @@
 
 **The performance optimization system for AI agent harnesses. From an Anthropic hackathon winner.**
 
-Not just configs. A complete system: skills, instincts, memory optimization, continuous learning, security scanning, and research-first development. Production-ready agents, hooks, commands, rules, and MCP configurations evolved over 10+ months of intensive daily use building real products.
+Not just configs. A complete system: skills, instincts, memory optimization, continuous learning, security scanning, and research-first development. Production-ready agents, skills, hooks, rules, MCP configurations, and legacy command shims evolved over 10+ months of intensive daily use building real products.
 
 Works across **Claude Code**, **Codex**, **Cowork**, and other AI agent harnesses.
 
@@ -44,20 +46,26 @@ This repo is the raw code only. The guides explain everything.
 
 <table>
 <tr>
-<td width="50%">
+<td width="33%">
 <a href="https://x.com/affaanmustafa/status/2012378465664745795">
-<img src="https://github.com/user-attachments/assets/1a471488-59cc-425b-8345-5245c7efbcef" alt="The Shorthand Guide to Everything Claude Code" />
+<img src="./assets/images/guides/shorthand-guide.png" alt="The Shorthand Guide to Everything Claude Code" />
 </a>
 </td>
-<td width="50%">
+<td width="33%">
 <a href="https://x.com/affaanmustafa/status/2014040193557471352">
-<img src="https://github.com/user-attachments/assets/c9ca43bc-b149-427f-b551-af6840c368f0" alt="The Longform Guide to Everything Claude Code" />
+<img src="./assets/images/guides/longform-guide.png" alt="The Longform Guide to Everything Claude Code" />
+</a>
+</td>
+<td width="33%">
+<a href="https://x.com/affaanmustafa/status/2033263813387223421">
+<img src="./assets/images/security/security-guide-header.png" alt="The Shorthand Guide to Everything Agentic Security" />
 </a>
 </td>
 </tr>
 <tr>
 <td align="center"><b>Shorthand Guide</b><br/>Setup, foundations, philosophy. <b>Read this first.</b></td>
 <td align="center"><b>Longform Guide</b><br/>Token optimization, memory persistence, evals, parallelization.</td>
+<td align="center"><b>Security Guide</b><br/>Attack vectors, sandboxing, sanitization, CVEs, AgentShield.</td>
 </tr>
 </table>
 
@@ -73,6 +81,18 @@ This repo is the raw code only. The guides explain everything.
 ---
 
 ## What's New
+
+### v1.9.0 — Selective Install & Language Expansion (Mar 2026)
+
+- **Selective install architecture** — Manifest-driven install pipeline with `install-plan.js` and `install-apply.js` for targeted component installation. State store tracks what's installed and enables incremental updates.
+- **6 new agents** — `typescript-reviewer`, `pytorch-build-resolver`, `java-build-resolver`, `java-reviewer`, `kotlin-reviewer`, `kotlin-build-resolver` expand language coverage to 10 languages.
+- **New skills** — `pytorch-patterns` for deep learning workflows, `documentation-lookup` for API reference research, `bun-runtime` and `nextjs-turbopack` for modern JS toolchains, plus 8 operational domain skills and `mcp-server-patterns`.
+- **Session & state infrastructure** — SQLite state store with query CLI, session adapters for structured recording, skill evolution foundation for self-improving skills.
+- **Orchestration overhaul** — Harness audit scoring made deterministic, orchestration status and launcher compatibility hardened, observer loop prevention with 5-layer guard.
+- **Observer reliability** — Memory explosion fix with throttling and tail sampling, sandbox access fix, lazy-start logic, and re-entrancy guard.
+- **12 language ecosystems** — New rules for Java/Quarkus, PHP, Perl, Kotlin/Android/KMP, C++, and Rust join existing TypeScript, Python, Go, and common rules.
+- **Community contributions** — Korean and Chinese translations, security hook, biome hook optimization, video processing skills, operational skills, PowerShell installer, Antigravity IDE support.
+- **CI hardening** — 19 test failure fixes, catalog count enforcement, install manifest validation, and full test suite green.
 
 ### v1.8.0 — Harness Performance System (Mar 2026)
 
@@ -103,7 +123,7 @@ This repo is the raw code only. The guides explain everything.
 
 ### v1.4.1 — Bug Fix (Feb 2026)
 
-- **Fixed instinct import content loss** — `parse_instinct_file()` was silently dropping all content after frontmatter (Action, Evidence, Examples sections) during `/instinct-import`. Fixed by community contributor @ericcai0814 ([#148](https://github.com/affaan-m/everything-claude-code/issues/148), [#161](https://github.com/affaan-m/everything-claude-code/pull/161))
+- **Fixed instinct import content loss** — `parse_instinct_file()` was silently dropping all content after frontmatter (Action, Evidence, Examples sections) during `/instinct-import`. ([#148](https://github.com/affaan-m/everything-claude-code/issues/148), [#161](https://github.com/affaan-m/everything-claude-code/pull/161))
 
 ### v1.4.0 — Multi-Language Rules, Installation Wizard & PM2 (Feb 2026)
 
@@ -131,7 +151,7 @@ See the full changelog in [Releases](https://github.com/affaan-m/everything-clau
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 Get up and running in under 2 minutes:
 
@@ -147,43 +167,83 @@ Get up and running in under 2 minutes:
 
 ### Step 2: Install Rules (Required)
 
-> ⚠️ **Important:** Claude Code plugins cannot distribute `rules` automatically. Install them manually:
+> WARNING: **Important:** Claude Code plugins cannot distribute `rules` automatically. Install them manually:
 
 ```bash
 # Clone the repo first
 git clone https://github.com/affaan-m/everything-claude-code.git
 cd everything-claude-code
 
-# Recommended: use the installer (handles common + language rules safely)
-./install.sh typescript    # or python or golang
-# You can pass multiple languages:
-# ./install.sh typescript python golang
-# or target cursor:
+# Install dependencies (pick your package manager)
+npm install        # or: pnpm install | yarn install | bun install
+
+# macOS/Linux
+
+# Recommended: install everything (full profile)
+./install.sh --profile full
+
+# Or install for specific languages only
+./install.sh typescript    # or python or golang or swift or php
+# ./install.sh typescript python golang swift php
 # ./install.sh --target cursor typescript
-# or target antigravity:
 # ./install.sh --target antigravity typescript
+# ./install.sh --target gemini --profile full
 ```
 
-For manual install instructions see the README in the `rules/` folder.
+```powershell
+# Windows PowerShell
+
+# Recommended: install everything (full profile)
+.\install.ps1 --profile full
+
+# Or install for specific languages only
+.\install.ps1 typescript   # or python or golang or swift or php
+# .\install.ps1 typescript python golang swift php
+# .\install.ps1 --target cursor typescript
+# .\install.ps1 --target antigravity typescript
+# .\install.ps1 --target gemini --profile full
+
+# npm-installed compatibility entrypoint also works cross-platform
+npx ecc-install typescript
+```
+
+For manual install instructions see the README in the `rules/` folder. When copying rules manually, copy the whole language directory (for example `rules/common` or `rules/golang`), not the files inside it, so relative references keep working and filenames do not collide.
 
 ### Step 3: Start Using
 
 ```bash
-# Try a command (plugin install uses namespaced form)
+# Skills are the primary workflow surface.
+# Existing slash-style command names still work while ECC migrates off commands/.
+
+# Plugin install uses the namespaced form
 /everything-claude-code:plan "Add user authentication"
 
-# Manual install (Option 2) uses the shorter form:
+# Manual install keeps the shorter slash form:
 # /plan "Add user authentication"
 
 # Check available commands
 /plugin list everything-claude-code@everything-claude-code
 ```
 
-✨ **That's it!** You now have access to 16 agents, 65 skills, and 40 commands.
+**That's it!** You now have access to 38 agents, 156 skills, and 72 legacy command shims.
+
+### Multi-model commands require additional setup
+
+> WARNING: `multi-*` commands are **not** covered by the base plugin/rules install above.
+>
+> To use `/multi-plan`, `/multi-execute`, `/multi-backend`, `/multi-frontend`, and `/multi-workflow`, you must also install the `ccg-workflow` runtime.
+>
+> Initialize it with `npx ccg-workflow`.
+>
+> That runtime provides the external dependencies these commands expect, including:
+> - `~/.claude/bin/codeagent-wrapper`
+> - `~/.claude/.ccg/prompts/*`
+>
+> Without `ccg-workflow`, these `multi-*` commands will not run correctly.
 
 ---
 
-## 🌐 Cross-Platform Support
+## Cross-Platform Support
 
 This plugin now fully supports **Windows, macOS, and Linux**, alongside tight integration across major IDEs (Cursor, OpenCode, Antigravity) and CLI harnesses. All hooks and scripts have been rewritten in Node.js for maximum compatibility.
 
@@ -230,7 +290,7 @@ export ECC_DISABLED_HOOKS="pre:bash:tmux-reminder,post:edit:typecheck"
 
 ---
 
-## 📦 What's Inside
+## What's Inside
 
 This repo is a **Claude Code plugin** - install it directly or copy components manually.
 
@@ -240,7 +300,7 @@ everything-claude-code/
 |   |-- plugin.json         # Plugin metadata and component paths
 |   |-- marketplace.json    # Marketplace catalog for /plugin marketplace add
 |
-|-- agents/           # Specialized subagents for delegation
+|-- agents/           # 38 specialized subagents for delegation
 |   |-- planner.md           # Feature implementation planning
 |   |-- architect.md         # System design decisions
 |   |-- tdd-guide.md         # Test-driven development
@@ -250,10 +310,24 @@ everything-claude-code/
 |   |-- e2e-runner.md        # Playwright E2E testing
 |   |-- refactor-cleaner.md  # Dead code cleanup
 |   |-- doc-updater.md       # Documentation sync
+|   |-- docs-lookup.md       # Documentation/API lookup
+|   |-- chief-of-staff.md    # Communication triage and drafts
+|   |-- loop-operator.md     # Autonomous loop execution
+|   |-- harness-optimizer.md # Harness config tuning
+|   |-- cpp-reviewer.md      # C++ code review
+|   |-- cpp-build-resolver.md # C++ build error resolution
 |   |-- go-reviewer.md       # Go code review
 |   |-- go-build-resolver.md # Go build error resolution
-|   |-- python-reviewer.md   # Python code review (NEW)
-|   |-- database-reviewer.md # Database/Supabase review (NEW)
+|   |-- python-reviewer.md   # Python code review
+|   |-- database-reviewer.md # Database/Supabase review
+|   |-- typescript-reviewer.md # TypeScript/JavaScript code review
+|   |-- java-reviewer.md     # Java/Quarkus/Spring Boot code review
+|   |-- java-build-resolver.md # Java/Maven/Gradle build errors
+|   |-- kotlin-reviewer.md   # Kotlin/Android/KMP code review
+|   |-- kotlin-build-resolver.md # Kotlin/Gradle build errors
+|   |-- rust-reviewer.md     # Rust code review
+|   |-- rust-build-resolver.md # Rust build error resolution
+|   |-- pytorch-build-resolver.md # PyTorch/CUDA training errors
 |
 |-- skills/           # Workflow definitions and domain knowledge
 |   |-- coding-standards/           # Language best practices
@@ -274,6 +348,7 @@ everything-claude-code/
 |   |-- security-review/            # Security checklist
 |   |-- eval-harness/               # Verification loop evaluation (Longform Guide)
 |   |-- verification-loop/          # Continuous verification (Longform Guide)
+|   |-- videodb/                   # Video and audio: ingest, search, edit, generate, stream (NEW)
 |   |-- golang-patterns/            # Go idioms and best practices
 |   |-- golang-testing/             # Go testing patterns, TDD, benchmarks
 |   |-- cpp-coding-standards/         # C++ coding standards from C++ Core Guidelines (NEW)
@@ -282,6 +357,10 @@ everything-claude-code/
 |   |-- django-security/            # Django security best practices (NEW)
 |   |-- django-tdd/                 # Django TDD workflow (NEW)
 |   |-- django-verification/        # Django verification loops (NEW)
+|   |-- laravel-patterns/           # Laravel architecture patterns (NEW)
+|   |-- laravel-security/           # Laravel security best practices (NEW)
+|   |-- laravel-tdd/                # Laravel TDD workflow (NEW)
+|   |-- laravel-verification/       # Laravel verification loops (NEW)
 |   |-- python-patterns/            # Python idioms and best practices (NEW)
 |   |-- python-testing/             # Python testing with pytest (NEW)
 |   |-- springboot-patterns/        # Java Spring Boot patterns (NEW)
@@ -310,10 +389,13 @@ everything-claude-code/
 |   |-- liquid-glass-design/         # iOS 26 Liquid Glass design system (NEW)
 |   |-- foundation-models-on-device/ # Apple on-device LLM with FoundationModels (NEW)
 |   |-- swift-concurrency-6-2/       # Swift 6.2 Approachable Concurrency (NEW)
+|   |-- perl-patterns/             # Modern Perl 5.36+ idioms and best practices (NEW)
+|   |-- perl-security/             # Perl security patterns, taint mode, safe I/O (NEW)
+|   |-- perl-testing/              # Perl TDD with Test2::V0, prove, Devel::Cover (NEW)
 |   |-- autonomous-loops/           # Autonomous loop patterns: sequential pipelines, PR loops, DAG orchestration (NEW)
 |   |-- plankton-code-quality/      # Write-time code quality enforcement with Plankton hooks (NEW)
 |
-|-- commands/         # Slash commands for quick execution
+|-- commands/         # Legacy slash-entry shims; prefer skills/
 |   |-- tdd.md              # /tdd - Test-driven development
 |   |-- plan.md             # /plan - Implementation planning
 |   |-- e2e.md              # /e2e - E2E test generation
@@ -333,6 +415,7 @@ everything-claude-code/
 |   |-- instinct-import.md  # /instinct-import - Import instincts (NEW)
 |   |-- instinct-export.md  # /instinct-export - Export instincts (NEW)
 |   |-- evolve.md           # /evolve - Cluster instincts into skills
+|   |-- prune.md            # /prune - Delete expired pending instincts (NEW)
 |   |-- pm2.md              # /pm2 - PM2 service lifecycle management (NEW)
 |   |-- multi-plan.md       # /multi-plan - Multi-agent task decomposition (NEW)
 |   |-- multi-execute.md    # /multi-execute - Orchestrated multi-agent workflows (NEW)
@@ -362,6 +445,12 @@ everything-claude-code/
 |   |-- python/              # Python specific
 |   |-- golang/              # Go specific
 |   |-- java/                # Java/Quarkus specific (NEW)
+|   |-- swift/               # Swift specific
+|   |-- php/                 # PHP specific (NEW)
+|   |-- perl/                # Perl specific (NEW)
+|   |-- kotlin/              # Kotlin/Android specific (NEW)
+|   |-- rust/                # Rust specific (NEW)
+|   |-- cpp/                 # C++ specific (NEW)
 |
 |-- hooks/            # Trigger-based automations
 |   |-- README.md                 # Hook documentation, recipes, and customization guide
@@ -378,7 +467,6 @@ everything-claude-code/
 |   |   |-- session-end.js       # Save state on session end
 |   |   |-- pre-compact.js       # Pre-compaction state saving
 |   |   |-- suggest-compact.js   # Strategic compaction suggestions
-|   |   |-- evaluate-session.js  # Extract patterns from sessions
 |   |-- setup-package-manager.js # Interactive PM setup
 |
 |-- tests/            # Test suite (NEW)
@@ -398,7 +486,8 @@ everything-claude-code/
 |   |-- go-microservice-CLAUDE.md # Real-world Go microservice (gRPC + PostgreSQL)
 |   |-- django-api-CLAUDE.md      # Real-world Django REST API (DRF + Celery)
 |   |-- quarkus-api-CLAUDE.md     # Real-world Quarkus API (Mutiny + Panache) (NEW)
-|   |-- rust-api-CLAUDE.md        # Real-world Rust API (Axum + SQLx + PostgreSQL) (NEW)
+|   |-- laravel-api-CLAUDE.md     # Real-world Laravel API (PostgreSQL + Redis) (NEW)
+   |-- rust-api-CLAUDE.md        # Real-world Rust API (Axum + SQLx + PostgreSQL) (NEW)
 |
 |-- mcp-configs/      # MCP server configurations
 |   |-- mcp-servers.json    # GitHub, Supabase, Vercel, Railway, etc.
@@ -408,7 +497,7 @@ everything-claude-code/
 
 ---
 
-## 🛠️ Ecosystem Tools
+## Ecosystem Tools
 
 ### Skill Creator
 
@@ -474,11 +563,7 @@ Use `/security-scan` in Claude Code to run it, or add to CI with the [GitHub Act
 
 [GitHub](https://github.com/affaan-m/agentshield) | [npm](https://www.npmjs.com/package/ecc-agentshield)
 
-### 🔬 Plankton — Write-Time Code Quality Enforcement
-
-Plankton (credit: @alxfazio) is a recommended companion for write-time code quality enforcement. It runs formatters and 20+ linters on every file edit via PostToolUse hooks, then spawns Claude subprocesses (routed to Haiku/Sonnet/Opus by violation complexity) to fix issues the main agent missed. Three-phase architecture: auto-format silently (40-50% of issues), collect remaining violations as structured JSON, delegate fixes to a subprocess. Includes config protection hooks that prevent agents from modifying linter configs to pass instead of fixing code. Supports Python, TypeScript, Shell, YAML, JSON, TOML, Markdown, and Dockerfile. Use alongside AgentShield for security + quality coverage. See `skills/plankton-code-quality/` for full integration guide.
-
-### 🧠 Continuous Learning v2
+### Continuous Learning v2
 
 The instinct-based learning system automatically learns your patterns:
 
@@ -493,7 +578,7 @@ See `skills/continuous-learning-v2/` for full documentation.
 
 ---
 
-## 📋 Requirements
+## Requirements
 
 ### Claude Code CLI Version
 
@@ -509,7 +594,7 @@ claude --version
 
 ### Important: Hooks Auto-Loading Behavior
 
-> ⚠️ **For Contributors:** Do NOT add a `"hooks"` field to `.claude-plugin/plugin.json`. This is enforced by a regression test.
+> WARNING: **For Contributors:** Do NOT add a `"hooks"` field to `.claude-plugin/plugin.json`. This is enforced by a regression test.
 
 Claude Code v2.1+ **automatically loads** `hooks/hooks.json` from any installed plugin by convention. Explicitly declaring it in `plugin.json` causes a duplicate detection error:
 
@@ -521,7 +606,7 @@ Duplicate hooks file detected: ./hooks/hooks.json resolves to already-loaded fil
 
 ---
 
-## 📥 Installation
+## Installation
 
 ### Option 1: Install as Plugin (Recommended)
 
@@ -568,16 +653,18 @@ This gives you instant access to all commands, agents, skills, and hooks.
 > cp -r everything-claude-code/rules/python/* ~/.claude/rules/
 > cp -r everything-claude-code/rules/golang/* ~/.claude/rules/
 > cp -r everything-claude-code/rules/java/* ~/.claude/rules/
+> cp -r everything-claude-code/rules/php/* ~/.claude/rules/
+> cp -r everything-claude-code/rules/swift/* ~/.claude/rules/
 >
 > # Option B: Project-level rules (applies to current project only)
 > mkdir -p .claude/rules
-> cp -r everything-claude-code/rules/common/* .claude/rules/
-> cp -r everything-claude-code/rules/typescript/* .claude/rules/     # pick your stack
+> cp -r everything-claude-code/rules/common .claude/rules/
+> cp -r everything-claude-code/rules/typescript .claude/rules/     # pick your stack
 > ```
 
 ---
 
-### 🔧 Option 2: Manual Installation
+### Option 2: Manual Installation
 
 If you prefer manual control over what's installed:
 
@@ -588,24 +675,27 @@ git clone https://github.com/affaan-m/everything-claude-code.git
 # Copy agents to your Claude config
 cp everything-claude-code/agents/*.md ~/.claude/agents/
 
-# Copy rules (common + language-specific)
-cp -r everything-claude-code/rules/common/* ~/.claude/rules/
-cp -r everything-claude-code/rules/typescript/* ~/.claude/rules/   # pick your stack
-cp -r everything-claude-code/rules/python/* ~/.claude/rules/
-cp -r everything-claude-code/rules/golang/* ~/.claude/rules/
+# Copy rules directories (common + language-specific)
+mkdir -p ~/.claude/rules
+cp -r everything-claude-code/rules/common ~/.claude/rules/
+cp -r everything-claude-code/rules/typescript ~/.claude/rules/   # pick your stack
+cp -r everything-claude-code/rules/python ~/.claude/rules/
+cp -r everything-claude-code/rules/golang ~/.claude/rules/
+cp -r everything-claude-code/rules/php ~/.claude/rules/
 
-# Copy commands
-cp everything-claude-code/commands/*.md ~/.claude/commands/
-
-# Copy skills (core vs niche)
+# Copy skills first (primary workflow surface)
 # Recommended (new users): core/general skills only
 cp -r everything-claude-code/.agents/skills/* ~/.claude/skills/
 cp -r everything-claude-code/skills/search-first ~/.claude/skills/
 
 # Optional: add niche/framework-specific skills only when needed
-# for s in django-patterns django-tdd springboot-patterns; do
-#   cp -r everything-claude-code/skills/$s ~/.claude/skills/
+# for s in django-patterns django-tdd laravel-patterns springboot-patterns; do
+# cp -r everything-claude-code/skills/$s ~/.claude/skills/
 # done
+
+# Optional: keep legacy slash-command compatibility during migration
+mkdir -p ~/.claude/commands
+cp everything-claude-code/commands/*.md ~/.claude/commands/
 ```
 
 #### Add hooks to settings.json
@@ -614,13 +704,13 @@ Copy the hooks from `hooks/hooks.json` to your `~/.claude/settings.json`.
 
 #### Configure MCPs
 
-Copy desired MCP servers from `mcp-configs/mcp-servers.json` to your `~/.claude.json`.
+Copy desired MCP server definitions from `mcp-configs/mcp-servers.json` into your official Claude Code config in `~/.claude/settings.json`, or into a project-scoped `.mcp.json` if you want repo-local MCP access.
 
 **Important:** Replace `YOUR_*_HERE` placeholders with your actual API keys.
 
 ---
 
-## 🎯 Key Concepts
+## Key Concepts
 
 ### Agents
 
@@ -639,7 +729,7 @@ You are a senior code reviewer...
 
 ### Skills
 
-Skills are workflow definitions invoked by commands or agents:
+Skills are the primary workflow surface. They can be invoked directly, suggested automatically, and reused by agents. ECC still ships `commands/` during migration, but new workflow development should land in `skills/` first.
 
 ```markdown
 # TDD Workflow
@@ -677,16 +767,19 @@ rules/
   typescript/      # TS/JS specific patterns and tools
   python/          # Python specific patterns and tools
   golang/          # Go specific patterns and tools
+  swift/           # Swift specific patterns and tools
+  php/             # PHP specific patterns and tools
 ```
 
 See [`rules/README.md`](rules/README.md) for installation and structure details.
 
 ---
 
-## 🗺️ Which Agent Should I Use?
+## Which Agent Should I Use?
 
-Not sure where to start? Use this quick reference:
+Not sure where to start? Use this quick reference. Skills are the canonical workflow surface; slash entries below are the compatibility form most users already know.
 
+<<<<<<< HEAD
 | I want to...                  | Use this command                                 | Agent used           |
 | ----------------------------- | ------------------------------------------------ | -------------------- |
 | Plan a new feature            | `/everything-claude-code:plan "Add auth"`        | planner              |
@@ -701,8 +794,27 @@ Not sure where to start? Use this quick reference:
 | Review Go code                | `/go-review`                                     | go-reviewer          |
 | Review Python code            | `/python-review`                                 | python-reviewer      |
 | Audit database queries        | _(auto-delegated)_                               | database-reviewer    |
+=======
+| I want to... | Use this command | Agent used |
+|--------------|-----------------|------------|
+| Plan a new feature | `/everything-claude-code:plan "Add auth"` | planner |
+| Design system architecture | `/everything-claude-code:plan` + architect agent | architect |
+| Write code with tests first | `/tdd` | tdd-guide |
+| Review code I just wrote | `/code-review` | code-reviewer |
+| Fix a failing build | `/build-fix` | build-error-resolver |
+| Run end-to-end tests | `/e2e` | e2e-runner |
+| Find security vulnerabilities | `/security-scan` | security-reviewer |
+| Remove dead code | `/refactor-clean` | refactor-cleaner |
+| Update documentation | `/update-docs` | doc-updater |
+| Review Go code | `/go-review` | go-reviewer |
+| Review Python code | `/python-review` | python-reviewer |
+| Review TypeScript/JavaScript code | *(invoke `typescript-reviewer` directly)* | typescript-reviewer |
+| Audit database queries | *(auto-delegated)* | database-reviewer |
+>>>>>>> origin
 
 ### Common Workflows
+
+Slash forms below are shown because they are still the fastest familiar entrypoint. Under the hood, ECC is shifting these workflows toward skills-first definitions.
 
 **Starting a new feature:**
 
@@ -731,7 +843,7 @@ Not sure where to start? Use this quick reference:
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 <details>
 <summary><b>How do I check which agents/commands are installed?</b></summary>
@@ -748,6 +860,31 @@ This shows all available agents, commands, and skills from the plugin.
 <summary><b>My hooks aren't working / I see "Duplicate hooks file" errors</b></summary>
 
 This is the most common issue. **Do NOT add a `"hooks"` field to `.claude-plugin/plugin.json`.** Claude Code v2.1+ automatically loads `hooks/hooks.json` from installed plugins. Explicitly declaring it causes duplicate detection errors. See [#29](https://github.com/affaan-m/everything-claude-code/issues/29), [#52](https://github.com/affaan-m/everything-claude-code/issues/52), [#103](https://github.com/affaan-m/everything-claude-code/issues/103).
+
+</details>
+
+<details>
+<summary><b>Can I use ECC with Claude Code on a custom API endpoint or model gateway?</b></summary>
+
+Yes. ECC does not hardcode Anthropic-hosted transport settings. It runs locally through Claude Code's normal CLI/plugin surface, so it works with:
+
+- Anthropic-hosted Claude Code
+- Official Claude Code gateway setups using `ANTHROPIC_BASE_URL` and `ANTHROPIC_AUTH_TOKEN`
+- Compatible custom endpoints that speak the Anthropic API Claude Code expects
+
+Minimal example:
+
+```bash
+export ANTHROPIC_BASE_URL=https://your-gateway.example.com
+export ANTHROPIC_AUTH_TOKEN=your-token
+claude
+```
+
+If your gateway remaps model names, configure that in Claude Code rather than in ECC. ECC's hooks, skills, commands, and rules are model-provider agnostic once the `claude` CLI is already working.
+
+Official references:
+- [Claude Code LLM gateway docs](https://docs.anthropic.com/en/docs/claude-code/llm-gateway)
+- [Claude Code model configuration docs](https://docs.anthropic.com/en/docs/claude-code/model-config)
 
 </details>
 
@@ -779,7 +916,8 @@ Yes. Use Option 2 (manual installation) and copy only what you need:
 cp everything-claude-code/agents/*.md ~/.claude/agents/
 
 # Just rules
-cp -r everything-claude-code/rules/common/* ~/.claude/rules/
+mkdir -p ~/.claude/rules/
+cp -r everything-claude-code/rules/common ~/.claude/rules/
 ```
 
 Each component is fully independent.
@@ -792,9 +930,10 @@ Each component is fully independent.
 Yes. ECC is cross-platform:
 
 - **Cursor**: Pre-translated configs in `.cursor/`. See [Cursor IDE Support](#cursor-ide-support).
+- **Gemini CLI**: Experimental project-local support via `.gemini/GEMINI.md` and shared installer plumbing.
 - **OpenCode**: Full plugin support in `.opencode/`. See [OpenCode Support](#-opencode-support).
 - **Codex**: First-class support for both macOS app and CLI, with adapter drift guards and SessionStart fallback. See PR [#257](https://github.com/affaan-m/everything-claude-code/pull/257).
-- **Antigravity**: Tightly integrated setup for workflows, skills, and flatten rules in `.agent/`.
+- **Antigravity**: Tightly integrated setup for workflows, skills, and flattened rules in `.agent/`. See [Antigravity Guide](docs/ANTIGRAVITY-GUIDE.md).
 - **Claude Code**: Native — this is the primary target.
 </details>
 
@@ -811,7 +950,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). The short version:
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 
 The plugin includes a comprehensive test suite:
 
@@ -827,7 +966,7 @@ node tests/hooks/hooks.test.js
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 **Contributions are welcome and encouraged.**
 
@@ -842,8 +981,8 @@ Please contribute! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ### Ideas for Contributions
 
-- Language-specific skills (Rust, C#, Swift, Kotlin) — Go, Python, Java already included
-- Framework-specific configs (Rails, Laravel, FastAPI, NestJS) — Django, Spring Boot already included
+- Language-specific skills (Rust, C#, Kotlin, Java) — Go, Python, Perl, Swift, and TypeScript already included
+- Framework-specific configs (Rails, FastAPI) — Django, NestJS, Spring Boot, and Laravel already included
 - DevOps agents (Kubernetes, Terraform, AWS, Docker)
 - Testing strategies (different frameworks, visual regression)
 - Domain-specific knowledge (ML, data engineering, mobile)
@@ -857,13 +996,20 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 ### Quick Start (Cursor)
 
 ```bash
-# Install for your language(s)
+# macOS/Linux
 ./install.sh --target cursor typescript
-./install.sh --target cursor python golang swift
+./install.sh --target cursor python golang swift php
+```
+
+```powershell
+# Windows PowerShell
+.\install.ps1 --target cursor typescript
+.\install.ps1 --target cursor python golang swift php
 ```
 
 ### What's Included
 
+<<<<<<< HEAD
 | Component    | Count            | Details                                                                                                |
 | ------------ | ---------------- | ------------------------------------------------------------------------------------------------------ |
 | Hook Events  | 15               | sessionStart, beforeShellExecution, afterFileEdit, beforeMCPExecution, beforeSubmitPrompt, and 10 more |
@@ -873,6 +1019,17 @@ ECC provides **full Cursor IDE support** with hooks, rules, agents, skills, comm
 | Skills       | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions                                   |
 | Commands     | Shared           | `.cursor/commands/` if installed                                                                       |
 | MCP Config   | Shared           | `.cursor/mcp.json` if installed                                                                        |
+=======
+| Component | Count | Details |
+|-----------|-------|---------|
+| Hook Events | 15 | sessionStart, beforeShellExecution, afterFileEdit, beforeMCPExecution, beforeSubmitPrompt, and 10 more |
+| Hook Scripts | 16 | Thin Node.js scripts delegating to `scripts/hooks/` via shared adapter |
+| Rules | 34 | 9 common (alwaysApply) + 25 language-specific (TypeScript, Python, Go, Swift, PHP) |
+| Agents | Shared | Via AGENTS.md at root (read by Cursor natively) |
+| Skills | Shared + Bundled | Via AGENTS.md at root and `.cursor/skills/` for translated additions |
+| Commands | Shared | `.cursor/commands/` if installed |
+| MCP Config | Shared | `.cursor/mcp.json` if installed |
+>>>>>>> origin
 
 ### Hook Architecture (DRY Adapter Pattern)
 
@@ -912,21 +1069,34 @@ ECC provides **first-class Codex support** for both the macOS app and CLI, with 
 ### Quick Start (Codex App + CLI)
 
 ```bash
-# Copy the reference config to your home directory
-cp .codex/config.toml ~/.codex/config.toml
-
-# Run Codex CLI in the repo — AGENTS.md is auto-detected
+# Run Codex CLI in the repo — AGENTS.md and .codex/ are auto-detected
 codex
+
+# Automatic setup: sync ECC assets (AGENTS.md, skills, MCP servers) into ~/.codex
+npm install && bash scripts/sync-ecc-to-codex.sh
+# or: pnpm install && bash scripts/sync-ecc-to-codex.sh
+# or: yarn install && bash scripts/sync-ecc-to-codex.sh
+# or: bun install && bash scripts/sync-ecc-to-codex.sh
+
+# Or manually: copy the reference config to your home directory
+cp .codex/config.toml ~/.codex/config.toml
 ```
+
+The sync script safely merges ECC MCP servers into your existing `~/.codex/config.toml` using an **add-only** strategy — it never removes or modifies your existing servers. Run with `--dry-run` to preview changes, or `--update-mcp` to force-refresh ECC servers to the latest recommended config.
+
+For Context7, ECC uses the canonical Codex section name `[mcp_servers.context7]` while still launching the `@upstash/context7-mcp` package. If you already have a legacy `[mcp_servers.context7-mcp]` entry, `--update-mcp` migrates it to the canonical section name.
 
 Codex macOS app:
 
 - Open this repository as your workspace.
 - The root `AGENTS.md` is auto-detected.
-- Optional: copy `.codex/config.toml` to `~/.codex/config.toml` for CLI/app behavior consistency.
+- `.codex/config.toml` and `.codex/agents/*.toml` work best when kept project-local.
+- The reference `.codex/config.toml` intentionally does not pin `model` or `model_provider`, so Codex uses its own current default unless you override it.
+- Optional: copy `.codex/config.toml` to `~/.codex/config.toml` for global defaults; keep the multi-agent role files project-local unless you also copy `.codex/agents/`.
 
 ### What's Included
 
+<<<<<<< HEAD
 | Component   | Count | Details                                                                         |
 | ----------- | ----- | ------------------------------------------------------------------------------- |
 | Config      | 1     | `.codex/config.toml` — model, permissions, MCP servers, persistent instructions |
@@ -934,6 +1104,16 @@ Codex macOS app:
 | Skills      | 16    | `.agents/skills/` — SKILL.md + agents/openai.yaml per skill                     |
 | MCP Servers | 4     | GitHub, Context7, Memory, Sequential Thinking (command-based)                   |
 | Profiles    | 2     | `strict` (read-only sandbox) and `yolo` (full auto-approve)                     |
+=======
+| Component | Count | Details |
+|-----------|-------|---------|
+| Config | 1 | `.codex/config.toml` — top-level approvals/sandbox/web_search, MCP servers, notifications, profiles |
+| AGENTS.md | 2 | Root (universal) + `.codex/AGENTS.md` (Codex-specific supplement) |
+| Skills | 16 | `.agents/skills/` — SKILL.md + agents/openai.yaml per skill |
+| MCP Servers | 6 | Supabase, Playwright, Context7, GitHub, Memory, Sequential Thinking (auto-merged via add-only sync) |
+| Profiles | 2 | `strict` (read-only sandbox) and `yolo` (full auto-approve) |
+| Agent Roles | 3 | `.codex/agents/` — explorer, reviewer, docs-researcher |
+>>>>>>> origin
 
 ### Skills
 
@@ -960,11 +1140,28 @@ Skills at `.agents/skills/` are auto-loaded by Codex:
 
 ### Key Limitation
 
-Codex does **not yet provide Claude-style hook execution parity**. ECC enforcement there is instruction-based via `AGENTS.md` and `persistent_instructions`, plus sandbox permissions.
+Codex does **not yet provide Claude-style hook execution parity**. ECC enforcement there is instruction-based via `AGENTS.md`, optional `model_instructions_file` overrides, and sandbox/approval settings.
+
+### Multi-Agent Support
+
+Current Codex builds support experimental multi-agent workflows.
+
+- Enable `features.multi_agent = true` in `.codex/config.toml`
+- Define roles under `[agents.<name>]`
+- Point each role at a file under `.codex/agents/`
+- Use `/agent` in the CLI to inspect or steer child agents
+
+ECC ships three sample role configs:
+
+| Role | Purpose |
+|------|---------|
+| `explorer` | Read-only codebase evidence gathering before edits |
+| `reviewer` | Correctness, security, and missing-test review |
+| `docs_researcher` | Documentation and API verification before release/docs changes |
 
 ---
 
-## 🔌 OpenCode Support
+## OpenCode Support
 
 ECC provides **full OpenCode support** including plugins and hooks.
 
@@ -982,6 +1179,7 @@ The configuration is automatically detected from `.opencode/opencode.json`.
 
 ### Feature Parity
 
+<<<<<<< HEAD
 | Feature      | Claude Code      | OpenCode           | Status                 |
 | ------------ | ---------------- | ------------------ | ---------------------- |
 | Agents       | ✅ 16 agents     | ✅ 12 agents       | **Claude Code leads**  |
@@ -991,6 +1189,17 @@ The configuration is automatically detected from `.opencode/opencode.json`.
 | Rules        | ✅ 29 rules      | ✅ 13 instructions | **Claude Code leads**  |
 | MCP Servers  | ✅ 14 servers    | ✅ Full            | **Full parity**        |
 | Custom Tools | ✅ Via hooks     | ✅ 6 native tools  | **OpenCode is better** |
+=======
+| Feature | Claude Code | OpenCode | Status |
+|---------|-------------|----------|--------|
+| Agents | PASS: 38 agents | PASS: 12 agents | **Claude Code leads** |
+| Commands | PASS: 72 commands | PASS: 31 commands | **Claude Code leads** |
+| Skills | PASS: 156 skills | PASS: 37 skills | **Claude Code leads** |
+| Hooks | PASS: 8 event types | PASS: 11 events | **OpenCode has more!** |
+| Rules | PASS: 29 rules | PASS: 13 instructions | **Claude Code leads** |
+| MCP Servers | PASS: 14 servers | PASS: Full | **Full parity** |
+| Custom Tools | PASS: Via hooks | PASS: 6 native tools | **OpenCode is better** |
+>>>>>>> origin
 
 ### Hook Support via Plugins
 
@@ -1006,8 +1215,9 @@ OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event t
 
 **Additional OpenCode events**: `file.edited`, `file.watcher.updated`, `message.updated`, `lsp.client.diagnostics`, `tui.toast.show`, and more.
 
-### Available Commands (31+)
+### Available Slash Entry Shims (31+)
 
+<<<<<<< HEAD
 | Command            | Description                                                 |
 | ------------------ | ----------------------------------------------------------- |
 | `/plan`            | Create implementation plan                                  |
@@ -1049,6 +1259,50 @@ OpenCode's plugin system is MORE sophisticated than Claude Code with 20+ event t
 | `/loop-status`     | Inspect active loop status and checkpoints                  |
 | `/quality-gate`    | Run quality gate checks for paths or entire repo            |
 | `/model-route`     | Route tasks to models by complexity and budget              |
+=======
+| Command | Description |
+|---------|-------------|
+| `/plan` | Create implementation plan |
+| `/tdd` | Enforce TDD workflow |
+| `/code-review` | Review code changes |
+| `/build-fix` | Fix build errors |
+| `/e2e` | Generate E2E tests |
+| `/refactor-clean` | Remove dead code |
+| `/orchestrate` | Multi-agent workflow |
+| `/learn` | Extract patterns from session |
+| `/checkpoint` | Save verification state |
+| `/verify` | Run verification loop |
+| `/eval` | Evaluate against criteria |
+| `/update-docs` | Update documentation |
+| `/update-codemaps` | Update codemaps |
+| `/test-coverage` | Analyze coverage |
+| `/go-review` | Go code review |
+| `/go-test` | Go TDD workflow |
+| `/go-build` | Fix Go build errors |
+| `/python-review` | Python code review (PEP 8, type hints, security) |
+| `/multi-plan` | Multi-model collaborative planning |
+| `/multi-execute` | Multi-model collaborative execution |
+| `/multi-backend` | Backend-focused multi-model workflow |
+| `/multi-frontend` | Frontend-focused multi-model workflow |
+| `/multi-workflow` | Full multi-model development workflow |
+| `/pm2` | Auto-generate PM2 service commands |
+| `/sessions` | Manage session history |
+| `/skill-create` | Generate skills from git |
+| `/instinct-status` | View learned instincts |
+| `/instinct-import` | Import instincts |
+| `/instinct-export` | Export instincts |
+| `/evolve` | Cluster instincts into skills |
+| `/promote` | Promote project instincts to global scope |
+| `/projects` | List known projects and instinct stats |
+| `/prune` | Delete expired pending instincts (30d TTL) |
+| `/learn-eval` | Extract and evaluate patterns before saving |
+| `/setup-pm` | Configure package manager |
+| `/harness-audit` | Audit harness reliability, eval readiness, and risk posture |
+| `/loop-start` | Start controlled agentic loop execution pattern |
+| `/loop-status` | Inspect active loop status and checkpoints |
+| `/quality-gate` | Run quality gate checks for paths or entire repo |
+| `/model-route` | Route tasks to models by complexity and budget |
+>>>>>>> origin
 
 ### Plugin Installation
 
@@ -1094,6 +1348,7 @@ For the full ECC OpenCode setup, either:
 
 ECC is the **first plugin to maximize every major AI coding tool**. Here's how each harness compares:
 
+<<<<<<< HEAD
 | Feature              | Claude Code           | Cursor IDE               | Codex CLI          | OpenCode         |
 | -------------------- | --------------------- | ------------------------ | ------------------ | ---------------- |
 | **Agents**           | 16                    | Shared (AGENTS.md)       | Shared (AGENTS.md) | 12               |
@@ -1109,26 +1364,38 @@ ECC is the **first plugin to maximize every major AI coding tool**. Here's how e
 | **Secret Detection** | Hook-based            | beforeSubmitPrompt hook  | Sandbox-based      | Hook-based       |
 | **Auto-Format**      | PostToolUse hook      | afterFileEdit hook       | N/A                | file.edited hook |
 | **Version**          | Plugin                | Plugin                   | Reference config   | 1.8.0            |
+=======
+| Feature | Claude Code | Cursor IDE | Codex CLI | OpenCode |
+|---------|------------|------------|-----------|----------|
+| **Agents** | 38 | Shared (AGENTS.md) | Shared (AGENTS.md) | 12 |
+| **Commands** | 72 | Shared | Instruction-based | 31 |
+| **Skills** | 156 | Shared | 10 (native format) | 37 |
+| **Hook Events** | 8 types | 15 types | None yet | 11 types |
+| **Hook Scripts** | 20+ scripts | 16 scripts (DRY adapter) | N/A | Plugin hooks |
+| **Rules** | 34 (common + lang) | 34 (YAML frontmatter) | Instruction-based | 13 instructions |
+| **Custom Tools** | Via hooks | Via hooks | N/A | 6 native tools |
+| **MCP Servers** | 14 | Shared (mcp.json) | 7 (auto-merged via TOML parser) | Full |
+| **Config Format** | settings.json | hooks.json + rules/ | config.toml | opencode.json |
+| **Context File** | CLAUDE.md + AGENTS.md | AGENTS.md | AGENTS.md | AGENTS.md |
+| **Secret Detection** | Hook-based | beforeSubmitPrompt hook | Sandbox-based | Hook-based |
+| **Auto-Format** | PostToolUse hook | afterFileEdit hook | N/A | file.edited hook |
+| **Version** | Plugin | Plugin | Reference config | 1.9.0 |
+>>>>>>> origin
 
 **Key architectural decisions:**
 
 - **AGENTS.md** at root is the universal cross-tool file (read by all 4 tools)
 - **DRY adapter pattern** lets Cursor reuse Claude Code's hook scripts without duplication
 - **Skills format** (SKILL.md with YAML frontmatter) works across Claude Code, Codex, and OpenCode
-- Codex's lack of hooks is compensated by `persistent_instructions` and sandbox permissions
+- Codex's lack of hooks is compensated by `AGENTS.md`, optional `model_instructions_file` overrides, and sandbox permissions
 
 ---
 
-## 📖 Background
+## Background
 
-I've been using Claude Code since the experimental rollout. Won the Anthropic x Forum Ventures hackathon in Sep 2025 building [zenith.chat](https://zenith.chat) with [@DRodriguezFX](https://x.com/DRodriguezFX) - entirely using Claude Code.
+I've been using Claude Code since the experimental rollout. Won the Anthropic x Forum Ventures hackathon in Sep 2025 with [@DRodriguezFX](https://x.com/DRodriguezFX) — built [zenith.chat](https://zenith.chat) entirely using Claude Code.
 
 These configs are battle-tested across multiple production applications.
-
-## Inspiration Credits
-
-- inspired by [zarazhangrui](https://github.com/zarazhangrui)
-- homunculus-inspired by [humanplane](https://github.com/humanplane)
 
 ---
 
@@ -1201,7 +1468,7 @@ Agent Teams spawns multiple context windows. Each teammate consumes tokens indep
 
 ---
 
-## ⚠️ Important Notes
+## WARNING: Important Notes
 
 ### Token Optimization
 
@@ -1234,7 +1501,7 @@ These configs work for my workflow. You should:
 
 ---
 
-## 💜 Sponsors
+## Sponsors
 
 This project is free and open source. Sponsors help keep it maintained and growing.
 
@@ -1242,23 +1509,22 @@ This project is free and open source. Sponsors help keep it maintained and growi
 
 ---
 
-## 🌟 Star History
+## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=affaan-m/everything-claude-code&type=Date)](https://star-history.com/#affaan-m/everything-claude-code&Date)
 
 ---
 
-## 🔗 Links
+## Links
 
 - **Shorthand Guide (Start Here):** [The Shorthand Guide to Everything Claude Code](https://x.com/affaanmustafa/status/2012378465664745795)
 - **Longform Guide (Advanced):** [The Longform Guide to Everything Claude Code](https://x.com/affaanmustafa/status/2014040193557471352)
+- **Security Guide:** [Security Guide](./the-security-guide.md) | [Thread](https://x.com/affaanmustafa/status/2033263813387223421)
 - **Follow:** [@affaanmustafa](https://x.com/affaanmustafa)
-- **zenith.chat:** [zenith.chat](https://zenith.chat)
-- **Skills Directory:** awesome-agent-skills (community-maintained directory of agent skills)
 
 ---
 
-## 📄 License
+## License
 
 MIT - Use freely, modify as needed, contribute back if you can.
 

@@ -1,6 +1,8 @@
 # Everything Claude Code (ECC) — Agent Instructions
 
-This is a **production-ready AI coding plugin** providing 13 specialized agents, 50+ skills, 33 commands, and automated hook workflows for software development.
+This is a **production-ready AI coding plugin** providing 38 specialized agents, 156 skills, 72 commands, and automated hook workflows for software development.
+
+**Version:** 1.9.0
 
 ## Core Principles
 
@@ -23,11 +25,23 @@ This is a **production-ready AI coding plugin** providing 13 specialized agents,
 | e2e-runner           | End-to-end Playwright testing    | Critical user flows               |
 | refactor-cleaner     | Dead code cleanup                | Code maintenance                  |
 | doc-updater          | Documentation and codemaps       | Updating docs                     |
+| cpp-reviewer         | C++ code review                  | C++ projects                      |
+| cpp-build-resolver   | C++ build errors                 | C++ build failures                |
+| docs-lookup          | Documentation lookup via Context7 | API/docs questions                |
 | go-reviewer          | Go code review                   | Go projects                       |
 | go-build-resolver    | Go build errors                  | Go build failures                 |
+| kotlin-reviewer      | Kotlin code review               | Kotlin/Android/KMP projects       |
+| kotlin-build-resolver| Kotlin/Gradle build errors       | Kotlin build failures             |
 | database-reviewer    | PostgreSQL/Supabase specialist   | Schema design, query optimization |
 | python-reviewer      | Python code review               | Python projects                   |
-| java-reviewer        | Java/Quarkus code review         | Java/Quarkus projects             |
+| java-reviewer        | Java/Quarkus/Spring Boot review  | Java/Quarkus/Spring Boot projects |
+| java-build-resolver  | Java/Maven/Gradle build errors   | Java build failures               |
+| loop-operator        | Autonomous loop execution        | Run loops safely, monitor stalls  |
+| harness-optimizer    | Harness config tuning            | Reliability, cost, throughput     |
+| rust-reviewer        | Rust code review                 | Rust projects                     |
+| rust-build-resolver  | Rust build errors                | Rust build failures               |
+| pytorch-build-resolver| PyTorch runtime/CUDA/training   | PyTorch build/training failures   |
+| typescript-reviewer  | TypeScript/JavaScript review     | TypeScript/JavaScript projects    |
 
 ## Agent Orchestration
 
@@ -38,6 +52,8 @@ Use agents proactively without user prompt:
 - Bug fix or new feature → **tdd-guide**
 - Architectural decision → **architect**
 - Security-sensitive code → **security-reviewer**
+- Autonomous loops / loop monitoring → **loop-operator**
+- Harness config reliability and cost → **harness-optimizer**
 
 Use parallel execution for independent operations — launch multiple agents simultaneously.
 
@@ -105,6 +121,12 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
    - If there is no obvious project doc location, ask before creating a new top-level file
 5. **Commit** — Conventional commits format, comprehensive PR summaries
 
+## Workflow Surface Policy
+
+- `skills/` is the canonical workflow surface.
+- New workflow contributions should land in `skills/` first.
+- `commands/` is a legacy slash-entry compatibility surface and should only be added or updated when a shim is still required for migration or cross-harness parity.
+
 ## Git Workflow
 
 **Commit format:** `<type>: <description>` — Types: feat, fix, refactor, docs, test, chore, perf, ci
@@ -128,15 +150,17 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 ## Project Structure
 
 ```
-agents/          — 13 specialized subagents
-skills/          — 50+ workflow skills and domain knowledge
-commands/        — 33 slash commands
+agents/          — 38 specialized subagents
+skills/          — 156 workflow skills and domain knowledge
+commands/        — 72 slash commands
 hooks/           — Trigger-based automations
 rules/           — Always-follow guidelines (common + per-language)
 scripts/         — Cross-platform Node.js utilities
 mcp-configs/     — 14 MCP server configurations
 tests/           — Test suite
 ```
+
+`commands/` remains in the repo for compatibility, but the long-term direction is skills-first.
 
 ## Success Metrics
 

@@ -297,12 +297,26 @@ public class RequestLoggingFilter implements ContainerRequestFilter, ContainerRe
 }
 ```
 
-## Pagination
+## Fault Tolerance (SmallRye)
+
+Use SmallRye Fault Tolerance for resilient external calls:
 
 ```java
-PanacheQuery<Market> query = Market.find("status = ?1", MarketStatus.ACTIVE)
-    .sort("createdAt", Sort.Direction.Descending);
-Page<Market> page = query.page(Page.of(pageNumber, pageSize));
+@ApplicationScoped
+public class ExternalService {
+  @Inject @RestClient MyRemoteApi api;
+
+  @Retry(maxRetries = 3, delay = 200)
+  @Fallback(fallbackMethod = "fallbackGet")
+  @CircuitBreaker(requestVolumeThreshold = 4)
+  public String callExternal(String param) {
+    return api.fetch(param);
+  }
+
+  public String fallbackGet(String param) {
+    return "Fallback data for " + param;
+  }
+}
 ```
 
 ## Native Compilation
